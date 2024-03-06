@@ -16,7 +16,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className=" flex">
+          <div className=" flex-1 bg-[#343541]">
+        {children}
+        </div>
+        </div>
+        
+        </body>
     </html>
   );
 }

@@ -22,17 +22,15 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <SessionProvider session={session}>
-        <div className=" flex">
-          <div className=" bg-[#202123] max-w-xs h-screen overflow-y-auto md:min-w-[20rem]">
-          <Sidebar />
+          <div className=" flex">
+            <div className=" bg-[#202123] max-w-xs h-screen overflow-y-auto md:min-w-[20rem]">
+              <Sidebar />
+            </div>
+
+            <div className=" flex-1 bg-[#343541]">{children}</div>
           </div>
-          
-          <div className=" flex-1 bg-[#343541]">
-        {children}
-        </div>
-        </div>
         </SessionProvider>
-        </body>
+      </body>
     </html>
   );
 }

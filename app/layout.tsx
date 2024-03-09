@@ -5,6 +5,7 @@ import Sidebar from "@/components/sidebar";
 import { getServerSession } from "next-auth";
 import SessionProvider from "@/components/SessionProvider";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import Login from "@/components/Login";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -22,6 +23,9 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <SessionProvider session={session}>
+          {!session ?(
+            <Login/>
+          ):(
           <div className=" flex">
             <div className=" bg-[#202123] max-w-xs h-screen overflow-y-auto md:min-w-[20rem]">
               <Sidebar />
@@ -29,6 +33,7 @@ export default async function RootLayout({
 
             <div className=" flex-1 bg-[#343541]">{children}</div>
           </div>
+          )}
         </SessionProvider>
       </body>
     </html>

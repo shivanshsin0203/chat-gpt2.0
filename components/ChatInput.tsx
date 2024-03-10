@@ -1,6 +1,7 @@
 "use client"
+import { db } from "@/firebase";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
-import { serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { FormEvent, useState } from "react"
 
@@ -8,11 +9,13 @@ type props={
     chatId:string
 }
 const ChatInput = ({chatId}:props) => {
+    const model="davinci";
     const [prompt,setPrompt]=useState('');
     const {data:session}=useSession();
     const sendMessage=async(e: FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
        if(!prompt)return;
+       setPrompt('');
        const input =prompt.trim();
        const message:Message={
         text:input,
@@ -23,6 +26,16 @@ const ChatInput = ({chatId}:props) => {
             avatar:session?.user?.image! || `https://ui-avatar.com/api/name=${session?.user?.name!}`
         }
        }
+       await addDoc(collection(db,"users",session?.user?.email!,"chats",chatId,"messages"),message);
+       await fetch('/api/askQuestion',{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({prompt:input,chatId,model,session})
+       }).then(()=>{
+        // Toast notification
+       })
     }
   return (
     <div className=" bg-gray-700/50 text-gray-400 rounded-lg text-sm">

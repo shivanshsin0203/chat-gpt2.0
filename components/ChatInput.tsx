@@ -10,7 +10,7 @@ type props={
     chatId:string
 }
 const ChatInput = ({chatId}:props) => {
-    const model="davinci";
+    const model="gpt-3.5-turbo";
     const [prompt,setPrompt]=useState('');
     const {data:session}=useSession();
     const sendMessage=async(e: FormEvent<HTMLFormElement>)=>{

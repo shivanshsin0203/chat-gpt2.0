@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     if(!chatId){
         return res.status(400).json({ message: 'Invalid ChatId' })
     }
-    const responce=query(prompt,chatId,model);
-   
+    const responce= await query(prompt,chatId,model);
+    console.log(responce);
     res.status(200).json({ message: 'Hello World' })
 }

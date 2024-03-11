@@ -36,7 +36,7 @@ const ChatInput = ({chatId}:props) => {
         },
         body:JSON.stringify({prompt:input,chatId,model,session})
        }).then(()=>{
-        toast.success('ChatGpt has replied');
+        toast.success('ChatGpt has replied',{id:notification});
        })
     }
   return (

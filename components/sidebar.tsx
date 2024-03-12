@@ -18,6 +18,9 @@ const Sidebar = () => {
             <div>
                 {/* Models */}
             </div>
+            <div className=" flex flex-col space-y-2 my-2">
+              
+            </div>
             <div>
                 {chats?.docs.map(chat=>(
                     <ChatRow key={chat.id} id={chat.id}/>

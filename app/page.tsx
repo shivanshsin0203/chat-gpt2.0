@@ -1,7 +1,12 @@
+import Sidebar from '@/components/sidebar';
 import {SunIcon,BoltIcon,ExclamationTriangleIcon} from '@heroicons/react/24/outline'
 export default function Home() {
   return (
-    <div className=" flex flex-col text-white items-center justify-center px-2 h-screen">
+    <div className=' flex h-screen'>
+      <div className='w-[20%] flex-1 md:hidden'>
+        <Sidebar/>
+      </div>
+    <div className=" flex flex-col text-white items-center justify-center px-2 h-screen ">
       <h1 className=" mb-20 text-5xl font-bold ">ChatGpt</h1>
       <div className=' flex space-x-2 text-center'>
         <div>
@@ -39,6 +44,7 @@ export default function Home() {
         </div>
 
       </div>
+    </div>
     </div>
   );
 }

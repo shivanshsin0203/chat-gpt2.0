@@ -11,7 +11,7 @@ const query=async (prompt:string,chatId:string,model:string)=>{
         presence_penalty:0
     }).then((res)=>res.choices[0].message.content)
     .catch((err)=>console.error("Chat Gpt was unable to answer with error "+err));
-    console.log(res);
+    
     return res;
 }
 export default query;

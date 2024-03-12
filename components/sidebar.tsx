@@ -8,7 +8,7 @@ import ChatRow from "./ChatRow"
 const Sidebar = () => {
     const {data:session}=useSession()
     const [chats,loading,error]=useCollection(session && query( collection(db,"users",session?.user?.email!,"chats"),orderBy("createdAt","asc")));
-    console.log(chats)
+   
   return (
     <div className=" p-2 flex flex-col h-screen ">
         <div className=" flex-1">

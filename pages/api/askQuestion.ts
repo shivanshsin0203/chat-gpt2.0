@@ -1,19 +1,30 @@
+import { adminDb } from "@/firebaseAdmin";
 import query from "@/lib/queryApi";
 import type { NextApiRequest,NextApiResponse } from "next";
-
+import admin from "firebase-admin";
 type Data = {
-    message:string
+    
+    answer:string
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
     const {prompt,chatId,model,session}=req.body;
     if(!prompt){
-        return res.status(400).json({ message: 'Invalid Prompt' })
+        return res.status(400).json({ answer: 'Invalid Prompt' })
     }
     if(!chatId){
-        return res.status(400).json({ message: 'Invalid ChatId' })
+        return res.status(400).json({answer: 'Invalid ChatId' })
     }
     const responce= await query(prompt,chatId,model);
-    console.log(responce);
-    res.status(200).json({ message: 'Hello World' })
+    const message:Message={
+        text:responce||"I am sorry, I am not able to answer that",
+        createdAt:admin.firestore.Timestamp.now(),
+        user:{
+            _id:"ChatGpt",
+            name:"ChatGpt",
+            avatar:"https://links.papareact.com/89k"
+        }
+    };
+    await adminDb.collection("users").doc(session?.user?.email!).collection("chats").doc(chatId).collection("messages").add(message);
+    res.status(200).json({ answer: message.text })
 }
